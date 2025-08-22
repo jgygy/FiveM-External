@@ -1,0 +1,252 @@
+{
+  "version": "2.0.0",
+  "lastUpdated": "2024-01-15",
+  "gameConfigs": {
+    "FIVEMb2545": {
+      "aimbot": {
+        "enabled": true,
+        "keybind": "MB1",
+        "smooth": 0.85,
+        "fov": 120,
+        "bone": "head",
+        "prediction": true,
+        "visibilityCheck": true,
+        "maxDistance": 200
+      },
+      "esp": {
+        "enabled": true,
+        "players": true,
+        "vehicles": true,
+        "npcs": true,
+        "distance": 1000,
+        "health": true,
+        "armor": true,
+        "money": true,
+        "name": true,
+        "distance": true
+      },
+      "money": {
+        "enabled": true,
+        "dropMultiplier": 10,
+        "autoPickup": true
+      },
+      "vehicle": {
+        "enabled": true,
+        "speedHack": true,
+        "flyMode": false,
+        "godMode": true,
+        "spawnAnywhere": true
+      }
+    },
+    "FIVEMb2699": {
+      "aimbot": {
+        "enabled": true,
+        "keybind": "MB1",
+        "smooth": 0.8,
+        "fov": 110,
+        "bone": "head",
+        "prediction": true,
+        "visibilityCheck": true
+      },
+      "esp": {
+        "enabled": true,
+        "players": true,
+        "vehicles": true,
+        "items": true,
+        "distance": 800,
+        "health": true,
+        "armor": true
+      },
+      "weapon": {
+        "enabled": true,
+        "noRecoil": true,
+        "noSpread": true,
+        "rapidFire": true,
+        "infiniteAmmo": true
+      },
+      "teleport": {
+        "enabled": true,
+        "waypoints": true,
+        "coords": true,
+        "toPlayer": true
+      }
+    },
+    "FIVEMb2802": {
+      "aimbot": {
+        "enabled": true,
+        "keybind": "MB1",
+        "smooth": 0.9,
+        "fov": 130,
+        "bone": "head",
+        "silent": true
+      },
+      "esp": {
+        "enabled": true,
+        "players": true,
+        "police": true,
+        "gangs": true,
+        "drugs": true
+      },
+      "misc": {
+        "enabled": true,
+        "superJump": true,
+        "fastRun": true,
+        "noClip": true,
+        "nightVision": true
+      }
+    },
+    "FIVEMb2944": {
+      "aimbot": {
+        "enabled": true,
+        "keybind": "MB1",
+        "smooth": 0.75,
+        "fov": 100,
+        "bone": "chest"
+      },
+      "esp": {
+        "enabled": true,
+        "players": true,
+        "jobs": true,
+        "blackMoney": true,
+        "drugLabs": true
+      },
+      "radar": {
+        "enabled": true,
+        "showCops": true,
+        "showPlayers": true,
+        "showSafeZones": true
+      }
+    },
+    "FIVEMb3095": {
+      "aimbot": {
+        "enabled": true,
+        "keybind": "MB1",
+        "smooth": 0.85,
+        "fov": 115,
+        "autoShoot": true
+      },
+      "esp": {
+        "enabled": true,
+        "players": true,
+        "shops": true,
+        "garages": true,
+        "atm": true
+      },
+      "recovery": {
+        "enabled": true,
+        "godMode": true,
+        "infiniteStamina": true,
+        "neverWanted": true
+      }
+    },
+    "FIVEMb3258": {
+      "aimbot": {
+        "enabled": true,
+        "keybind": "MB1",
+        "smooth": 0.8,
+        "fov": 125,
+        "triggerbot": true
+      },
+      "esp": {
+        "enabled": true,
+        "players": true,
+        "houses": true,
+        "businesses": true,
+        "banks": true
+      },
+      "modMenu": {
+        "enabled": true,
+        "moneyDrop": true,
+        "giveWeapons": true,
+        "spawnVehicles": true
+      }
+    },
+    "FIVEMb3323": {
+      "aimbot": {
+        "enabled": true,
+        "keybind": "MB1",
+        "smooth": 0.9,
+        "fov": 140,
+        "rageMode": false
+      },
+      "esp": {
+        "enabled": true,
+        "players": true,
+        "helicopters": true,
+        "boats": true,
+        "bikes": true
+      },
+      "world": {
+        "enabled": true,
+        "timeControl": true,
+        "weatherControl": true,
+        "trafficControl": true
+      }
+    },
+    "FIVEMb3407": {
+      "aimbot": {
+        "enabled": true,
+        "keybind": "MB1",
+        "smooth": 0.85,
+        "fov": 135,
+        "legitMode": true
+      },
+      "esp": {
+        "enabled": true,
+        "players": true,
+        "admin": true,
+        "mod": true,
+        "vip": true
+      },
+      "premium": {
+        "enabled": true,
+        "exclusiveFeatures": true,
+        "premiumSupport": true,
+        "earlyAccess": true
+      }
+    }
+  },
+  "universalSettings": {
+    "overlay": {
+      "enabled": true,
+      "opacity": 0.8,
+      "position": "top-right",
+      "hotkey": "INSERT"
+    },
+    "stealth": {
+      "obsBypass": true,
+      "screenshotProtection": true,
+      "streamSafe": true,
+      "antiCheat": "advanced"
+    },
+    "customization": {
+      "theme": "dark",
+      "accentColor": "#00f5ff",
+      "fontSize": 14,
+      "language": "zh-CN"
+    },
+    "hotkeys": {
+      "toggle": "INSERT",
+      "panic": "DELETE",
+      "reload": "F5",
+      "configSave": "F12"
+    }
+  },
+  "premiumFeatures": {
+    "cloudSync": {
+      "enabled": true,
+      "autoBackup": true,
+      "syncInterval": 300
+    },
+    "aiAssistant": {
+      "enabled": true,
+      "autoConfig": true,
+      "performanceOptimization": true
+    },
+    "exclusiveConfigs": {
+      "proPlayer": true,
+      "tournament": true,
+      "streaming": true
+    }
+  }
+}
