@@ -8,6 +8,133 @@
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Exo+2:wght@300;400;600&display=swap" rel="stylesheet">
     <!-- APlayer 核心样式 -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aplayer@1.10.1/dist/APlayer.min.css">
+    
+    <!-- 欢迎弹窗样式 -->
+    <style>
+        .welcome-modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            backdrop-filter: blur(10px);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 10000;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .welcome-modal-overlay.show {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .welcome-modal {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 20px;
+            padding: 40px;
+            text-align: center;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+            transform: scale(0.8);
+            transition: transform 0.3s ease;
+            max-width: 400px;
+            width: 90%;
+        }
+
+        .welcome-modal-overlay.show .welcome-modal {
+            transform: scale(1);
+        }
+
+        .modal-header {
+            margin-bottom: 25px;
+        }
+
+        .modal-icon {
+            font-size: 48px;
+            margin-bottom: 15px;
+            animation: bounce 2s infinite;
+        }
+
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% {
+                transform: translateY(0);
+            }
+            40% {
+                transform: translateY(-10px);
+            }
+            60% {
+                transform: translateY(-5px);
+            }
+        }
+
+        .welcome-modal h2 {
+            color: white;
+            font-size: 28px;
+            margin: 0;
+            font-weight: 600;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+        }
+
+        .modal-content {
+            margin-bottom: 30px;
+        }
+
+        .welcome-modal p {
+            color: rgba(255, 255, 255, 0.9);
+            font-size: 16px;
+            margin: 10px 0;
+            line-height: 1.5;
+        }
+
+        .modal-subtitle {
+            font-size: 14px !important;
+            color: rgba(255, 255, 255, 0.7) !important;
+        }
+
+        .modal-btn {
+            background: linear-gradient(45deg, #ff6b6b, #ff8e8e);
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            font-size: 16px;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(255, 107, 107, 0.4);
+        }
+
+        .modal-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(255, 107, 107, 0.6);
+        }
+
+        .modal-btn:active {
+            transform: translateY(0);
+        }
+
+        /* 响应式设计 */
+        @media (max-width: 600px) {
+            .welcome-modal {
+                padding: 30px 20px;
+                margin: 20px;
+            }
+            
+            .welcome-modal h2 {
+                font-size: 24px;
+            }
+            
+            .modal-btn {
+                padding: 12px 30px;
+                font-size: 14px;
+            }
+        }
+    </style>
 </head>
 <body>
     <!-- 背景动画 -->
@@ -40,7 +167,8 @@
                 <span class="title-sub">External</span>
             </h1>
             <p class="hero-description">
-                革命性的FiveM外部增强技术，为竞技玩家打造的终极工具套件<br>
+                革命性的FiveM外部增强技术<br>
+                为竞技玩家打造的终极工具套件<br>
                 专注PVP一直很稳定从未封号
             </p>
             <div class="hero-buttons">
@@ -314,12 +442,30 @@
         </div>
     </section>
 
-    <!-- 自定义音乐播放器 -->
-        <iframe src="https://enamscard.pages.dev/?playlist=6601815695&theme=dark&themeColor=%23008eff" 
+    <!-- 欢迎弹窗 -->
+    <div id="welcome-modal" class="welcome-modal-overlay">
+        <div class="welcome-modal">
+            <div class="modal-header">
+                <div class="modal-icon">🌸</div>
+                <h2>你好呀</h2>
+            </div>
+            <div class="modal-content">
+                <p>欢迎来到 FiveM-External</p>
+                <p class="modal-subtitle">点击开始</p>
+            </div>
+            <button id="welcome-confirm" class="modal-btn">
+                <span>确定</span>
+            </button>
+        </div>
+    </div>
+
+    <!-- 自定义音乐播放器 - 关闭自动播放 -->
+        <iframe src="https://enamscard.pages.dev/?playlist=6601815695&theme=dark&themeColor=%23008eff&autoplay=false" 
             width="260" height="110" 
             style="border: none; border-radius: 8px;" 
             frameborder="0"
-            class="custom-music-player">
+            class="custom-music-player"
+            allow="autoplay">
         </iframe>
 
     <!-- 页脚 -->
@@ -402,6 +548,59 @@
                     .random() * 255)) + ")";
             }
         }());
+    </script>
+
+    <!-- 欢迎弹窗脚本 -->
+    <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const modal = document.getElementById('welcome-modal');
+        const confirmBtn = document.getElementById('welcome-confirm');
+        
+        // 显示弹窗
+        setTimeout(() => {
+            modal.classList.add('show');
+        }, 800);
+        
+        // 绑定确定按钮事件
+        confirmBtn.addEventListener('click', function() {
+            // 关闭弹窗
+            modal.classList.remove('show');
+            
+            // 获取音乐播放器iframe
+            const iframe = document.querySelector('.custom-music-player');
+            if (iframe) {
+                // 由于跨域限制，使用focus方法模拟点击
+                iframe.focus();
+                
+                // 尝试发送播放指令
+                try {
+                    iframe.contentWindow.postMessage({ action: 'play' }, '*');
+                } catch (e) {
+                    console.log('音乐播放器已准备就绪');
+                }
+            }
+            
+            // 添加点击反馈动画
+            confirmBtn.style.transform = 'scale(0.95)';
+            setTimeout(() => {
+                confirmBtn.style.transform = 'scale(1)';
+            }, 150);
+        });
+        
+        // 点击弹窗外部关闭
+        modal.addEventListener('click', function(e) {
+            if (e.target === modal) {
+                modal.classList.remove('show');
+            }
+        });
+        
+        // ESC键关闭弹窗
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                modal.classList.remove('show');
+            }
+        });
+    });
     </script>
 
     <!-- Live2D看板娘 - 使用ZStatic.net CDN显示在左下角 -->
