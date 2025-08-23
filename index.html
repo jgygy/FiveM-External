@@ -6,6 +6,8 @@
     <title>FiveM-External - 革命性FiveM外部增强技术</title>
     <link rel="stylesheet" href="styles.css">
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Exo+2:wght@300;400;600&display=swap" rel="stylesheet">
+    <!-- APlayer 核心样式 -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aplayer@1.10.1/dist/APlayer.min.css">
 </head>
 <body>
     <!-- 背景动画 -->
@@ -312,38 +314,47 @@
         </div>
     </section>
 
+    <!-- 自定义音乐播放器 -->
+        <iframe src="https://enamscard.pages.dev/?playlist=6601815695&theme=dark&themeColor=%23008eff" 
+            width="260" height="110" 
+            style="border: none; border-radius: 8px;" 
+            frameborder="0"
+            class="custom-music-player">
+        </iframe>
+
     <!-- 页脚 -->
     <footer class="footer">
         <div class="container">
             <div class="footer-content">
-                <div class="footer-info">
-                    <div class="logo">
-                        <span class="logo-text">FIVEM</span>
-                        <span class="logo-sub">EXTERNAL</span>
-                    </div>
-                    <p>次世代游戏增强系统，为精英玩家而生</p>
+                <div class="footer-section">
+                    <h3>FiveM-External</h3>
+                    <p>革命性的FiveM外部增强技术</p>
                 </div>
-                <div class="footer-links">
-                    <div class="link-group">
-                        <h4>产品</h4>
-                        <a href="#features">功能特性</a>
-                        <a href="#versions">版本支持</a>
-                        <a href="#download">价格方案</a>
-                    </div>
-                    <div class="link-group">
-                        <h4>支持</h4>
-                        <a href="#support">技术支持</a>
-                        <a href="#community">社区</a>
-                        <a href="#docs">文档</a>
-                    </div>
+                <div class="footer-section">
+                    <h4>快速链接</h4>
+                    <ul>
+                        <li><a href="#features">功能特性</a></li>
+                        <li><a href="#versions">版本管理</a></li>
+                        <li><a href="#support">技术支持</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>联系我们</h4>
+                    <p>QQ群：<a href="https://qm.qq.com/q/PKWCLve8Gk">点击加入</a></p>
+                    <p>技术支持：鲁迅</p>
                 </div>
             </div>
             <div class="footer-bottom">
-                <p>&copy; 2025 FiveM-External. 专为游戏爱好者打造</p>
+                <p>&copy; 2024 FiveM-External. 专为游戏爱好者打造</p>
             </div>
         </div>
     </footer>
 
+    <!-- APlayer & MetingJS -->
+    <script src="https://cdn.jsdelivr.net/npm/aplayer@1.10.1/dist/APlayer.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/meting@2.0.1/dist/Meting.min.js"></script>
+    
+    <!-- JavaScript -->
     <script src="script.js"></script>
 </body>
 </html>

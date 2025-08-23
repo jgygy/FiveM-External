@@ -496,4 +496,35 @@ preloadLinks.forEach(href => {
     document.head.appendChild(link);
 });
 
+// 音乐播放器事件监听
+document.addEventListener('DOMContentLoaded', function() {
+    // 等待MetingJS加载完成
+    setTimeout(() => {
+        const meting = document.querySelector('meting-js');
+        if (meting && meting.aplayer) {
+            const ap = meting.aplayer;
+            
+            // 播放状态监听
+            ap.on('play', () => {
+                console.log('🎵 音乐播放开始');
+            });
+            
+            // 暂停监听
+            ap.on('pause', () => {
+                console.log('⏸️ 音乐已暂停');
+            });
+            
+            // 加载完成监听
+            ap.on('canplay', () => {
+                console.log('🎶 音乐加载完成');
+            });
+            
+            // 错误监听
+            ap.on('error', (e) => {
+                console.error('❌ 音乐播放错误:', e);
+            });
+        }
+    }, 1000);
+});
+
 console.log('FiveM-External 网站已完全加载，所有功能正常运行！');

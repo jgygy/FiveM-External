@@ -728,6 +728,18 @@ body {
     color: var(--text-muted);
 }
 
+/* 自定义音乐播放器样式 - 左下角定位 */
+.custom-music-player {
+    position: fixed;
+    bottom: 20px;
+    left: 20px;
+    z-index: 9999;
+    border-radius: 8px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+    border: none;
+    background: transparent;
+}
+
 /* 响应式设计 */
 @media (max-width: 768px) {
     .hero {
@@ -751,6 +763,11 @@ body {
     
     .nav-links {
         display: none;
+    }
+    
+    .aplayer {
+        width: 90% !important;
+        margin: 0 auto !important;
     }
 }
 
