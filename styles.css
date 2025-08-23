@@ -24,58 +24,50 @@
 }
 
 body {
-    font-family: 'Exo 2', sans-serif;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
     background: var(--bg-primary);
     color: var(--text-primary);
     line-height: 1.6;
     overflow-x: hidden;
 }
 
-/* 背景动画 */
-.bg-animation {
+/* 视频背景样式 */
+.video-background {
     position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: -2;
+    overflow: hidden;
+}
+
+.video-background video {
+    position: absolute;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
+    object-fit: cover;
+    object-position: center;
+}
+
+.video-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.4);
     z-index: -1;
-    overflow: hidden;
+    pointer-events: none;
 }
 
-.particles {
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    background-image: 
-        radial-gradient(2px 2px at 20px 30px, var(--primary-color), transparent),
-        radial-gradient(2px 2px at 40px 70px, var(--secondary-color), transparent),
-        radial-gradient(1px 1px at 90px 40px, var(--accent-color), transparent),
-        radial-gradient(1px 1px at 130px 80px, var(--primary-color), transparent);
-    background-repeat: repeat;
-    background-size: 150px 150px;
-    animation: particles 20s linear infinite;
-    opacity: 0.3;
-}
-
+/* 移除原有的背景图案 */
+.bg-animation,
+.particles,
 .grid-overlay {
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    background-image: 
-        linear-gradient(rgba(0, 245, 255, 0.1) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(0, 245, 255, 0.1) 1px, transparent 1px);
-    background-size: 50px 50px;
-    animation: gridMove 10s linear infinite;
-}
-
-@keyframes particles {
-    0% { transform: translateY(0px); }
-    100% { transform: translateY(-150px); }
-}
-
-@keyframes gridMove {
-    0% { transform: translate(0, 0); }
-    100% { transform: translate(50px, 50px); }
+    display: none;
 }
 
 /* 导航栏 */
@@ -153,7 +145,7 @@ body {
     width: 100%;
 }
 
-/* 英雄区域 */
+/* 英雄区域 - 适配视频背景 */
 .hero {
     min-height: 100vh;
     display: flex;
@@ -162,6 +154,50 @@ body {
     max-width: 1200px;
     margin: 0 auto;
     gap: 4rem;
+    position: relative;
+    z-index: 1;
+}
+
+/* 移动端视频背景优化 */
+@media (max-width: 768px) {
+    .video-background {
+        width: 100vw;
+        height: 100vh;
+    }
+    
+    .video-background video {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+    
+    .video-overlay {
+        background: rgba(0, 0, 0, 0.5);
+    }
+}
+
+/* 确保视频背景在所有设备上正确显示 */
+html, body {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 100%;
+    overflow-x: hidden;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+/* 视频加载占位符 */
+.video-loading {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: white;
+    font-size: 1.2rem;
+    z-index: 10;
 }
 
 .hero-content {
