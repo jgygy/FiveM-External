@@ -94,6 +94,18 @@
             font-size: 14px !important;
             color: rgba(255, 255, 255, 0.7) !important;
         }
+        
+        .vpn-tip {
+            margin: 15px 0;
+            font-size: 14px;
+            color: rgba(255, 255, 255, 0.8);
+            line-height: 1.6;
+        }
+        
+        .vpn-tip strong {
+            color: #ffd700;
+            font-weight: 600;
+        }
 
         .modal-btn {
             background: linear-gradient(45deg, #ff6b6b, #ff8e8e);
@@ -145,6 +157,34 @@
         </video>
     </div>
     <div class="video-overlay"></div>
+    
+    <!-- 侧边装饰条 - 高端科技感 -->
+    <div class="side-decoration left">
+        <div class="tech-grid"></div>
+        <div class="data-stream"></div>
+        <div class="data-stream"></div>
+        <div class="data-stream"></div>
+        <div class="data-stream"></div>
+        <div class="corner-decoration top-left"></div>
+        <div class="corner-decoration bottom-right"></div>
+        <div class="glow-effect"></div>
+        <div class="brand-mark">FIVEM-EXTERNAL</div>
+    </div>
+    
+    <div class="side-decoration right">
+        <div class="tech-grid"></div>
+        <div class="data-stream"></div>
+        <div class="data-stream"></div>
+        <div class="data-stream"></div>
+        <div class="data-stream"></div>
+        <div class="corner-decoration top-left"></div>
+        <div class="corner-decoration bottom-right"></div>
+        <div class="glow-effect"></div>
+        <div class="brand-mark">TECHNOLOGY</div>
+    </div>
+    
+    <!-- 粒子系统容器 -->
+    <div class="particles"></div>
 
     <!-- 导航栏 -->
     <nav class="navbar">
@@ -454,7 +494,12 @@
             </div>
             <div class="modal-content">
                 <p>欢迎来到 FiveM-External</p>
-                <p class="modal-subtitle">点击开始</p>
+                <p class="modal-subtitle">点击开始体验</p>
+                <div class="vpn-tip">
+                    💡 访问建议：<br>
+                    如遇加载缓慢，建议使用VPN或加速工具<br>
+                    <strong>推荐工具：Steam++、Steamcommunity 302</strong>
+                </div>
             </div>
             <button id="welcome-confirm" class="modal-btn">
                 <span>确定</span>

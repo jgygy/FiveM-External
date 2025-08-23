@@ -68,9 +68,178 @@ body {
     pointer-events: none;
 }
 
+/* 侧边装饰条 - 高端科技感 */
+.side-decoration {
+    position: fixed;
+    top: 0;
+    height: 100vh;
+    width: 80px;
+    z-index: -1;
+    pointer-events: none;
+    overflow: hidden;
+}
+
+.side-decoration.left {
+    left: 0;
+    background: linear-gradient(90deg, 
+        rgba(0, 245, 255, 0.1) 0%, 
+        transparent 100%);
+}
+
+.side-decoration.right {
+    right: 0;
+    background: linear-gradient(-90deg, 
+        rgba(255, 0, 128, 0.1) 0%, 
+        transparent 100%);
+}
+
+/* 科技网格线 */
+.tech-grid {
+    position: absolute;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0.3;
+}
+
+.tech-grid::before,
+.tech-grid::after {
+    content: '';
+    position: absolute;
+    background: linear-gradient(90deg, 
+        transparent, 
+        var(--primary-color), 
+        transparent);
+}
+
+.tech-grid::before {
+    top: 20%;
+    left: 0;
+    width: 100%;
+    height: 1px;
+    animation: scan-line 3s linear infinite;
+}
+
+.tech-grid::after {
+    top: 80%;
+    left: 0;
+    width: 100%;
+    height: 1px;
+    animation: scan-line 3s linear infinite 1.5s;
+}
+
+/* 数据流粒子 */
+.data-stream {
+    position: absolute;
+    width: 2px;
+    height: 2px;
+    background: var(--primary-color);
+    border-radius: 50%;
+    animation: data-flow 4s linear infinite;
+    box-shadow: 0 0 6px var(--primary-color);
+}
+
+.data-stream:nth-child(odd) {
+    background: var(--secondary-color);
+    box-shadow: 0 0 6px var(--secondary-color);
+}
+
+.data-stream:nth-child(1) { left: 20%; animation-delay: 0s; }
+.data-stream:nth-child(2) { left: 40%; animation-delay: 1s; }
+.data-stream:nth-child(3) { left: 60%; animation-delay: 2s; }
+.data-stream:nth-child(4) { left: 80%; animation-delay: 3s; }
+
+/* 角落装饰 */
+.corner-decoration {
+    position: absolute;
+    width: 30px;
+    height: 30px;
+    border: 2px solid;
+    opacity: 0.5;
+}
+
+.corner-decoration.top-left {
+    top: 20px;
+    left: 20px;
+    border-color: var(--primary-color);
+    border-right: none;
+    border-bottom: none;
+}
+
+.corner-decoration.bottom-right {
+    bottom: 20px;
+    right: 20px;
+    border-color: var(--secondary-color);
+    border-left: none;
+    border-top: none;
+}
+
+/* 动态光效 */
+.glow-effect {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(
+        ellipse at center,
+        rgba(0, 245, 255, 0.1) 0%,
+        transparent 70%
+    );
+    animation: pulse-glow 2s ease-in-out infinite alternate;
+}
+
+/* 品牌标识 */
+.brand-mark {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) rotate(-90deg);
+    font-family: 'Orbitron', monospace;
+    font-size: 12px;
+    letter-spacing: 3px;
+    color: rgba(255, 255, 255, 0.3);
+    writing-mode: vertical-rl;
+    text-orientation: mixed;
+}
+
+/* 动画定义 */
+@keyframes scan-line {
+    0% { opacity: 0; transform: translateX(-100%); }
+    50% { opacity: 1; }
+    100% { opacity: 0; transform: translateX(100%); }
+}
+
+@keyframes data-flow {
+    0% { transform: translateY(100vh); opacity: 0; }
+    10% { opacity: 1; }
+    90% { opacity: 1; }
+    100% { transform: translateY(-100px); opacity: 0; }
+}
+
+@keyframes pulse-glow {
+    0% { opacity: 0.3; }
+    100% { opacity: 0.7; }
+}
+
+/* 粒子系统 */
+.particles {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: -3;
+    pointer-events: none;
+    overflow: hidden;
+}
+
+.particle {
+    position: absolute;
+    border-radius: 50%;
+    pointer-events: none;
+}
+
 /* 移除原有的背景图案 */
 .bg-animation,
-.particles,
 .grid-overlay {
     display: none;
 }
@@ -183,6 +352,21 @@ body {
     
     .video-overlay {
         background: rgba(0, 0, 0, 0.5);
+    }
+    
+    /* 移动端隐藏侧边装饰 */
+    .side-decoration {
+        width: 40px;
+    }
+    
+    .side-decoration .brand-mark {
+        font-size: 8px;
+        letter-spacing: 1px;
+    }
+    
+    .corner-decoration {
+        width: 15px;
+        height: 15px;
     }
 }
 

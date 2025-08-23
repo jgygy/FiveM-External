@@ -7,7 +7,12 @@
         </div>
         <div class="modal-content">
             <p>欢迎来到 FiveM-External</p>
-            <p class="modal-subtitle">点击开始</p>
+            <div class="vpn-tip">
+                💡 <strong>访问建议：</strong><br>
+                如遇加载缓慢，建议使用VPN或加速工具<br>
+                <strong>推荐工具：</strong>Steam++、Steamcommunity 302
+            </div>
+            <p class="modal-subtitle">点击开始体验</p>
         </div>
         <button id="welcome-confirm" class="modal-btn">
             <span>确定</span>
@@ -99,6 +104,18 @@
 .modal-subtitle {
     font-size: 14px !important;
     color: rgba(255, 255, 255, 0.7) !important;
+}
+
+.vpn-tip {
+    margin: 15px 0;
+    font-size: 14px;
+    color: rgba(255, 255, 255, 0.8);
+    line-height: 1.6;
+}
+
+.vpn-tip strong {
+    color: #ffd700;
+    font-weight: 600;
 }
 
 .modal-btn {
