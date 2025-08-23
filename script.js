@@ -528,3 +528,71 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 console.log('FiveM-External 网站已完全加载，所有功能正常运行！');
+
+// 禁止复制文字功能
+(function() {
+    // 禁用右键菜单
+    document.addEventListener('contextmenu', function(e) {
+        e.preventDefault();
+        return false;
+    });
+
+    // 禁用选择文字
+    document.addEventListener('selectstart', function(e) {
+        e.preventDefault();
+        return false;
+    });
+
+    // 禁用拖拽
+    document.addEventListener('dragstart', function(e) {
+        e.preventDefault();
+        return false;
+    });
+
+    // 禁用复制快捷键 (Ctrl+C, Ctrl+X)
+    document.addEventListener('keydown', function(e) {
+        if ((e.ctrlKey || e.metaKey) && (e.key === 'c' || e.key === 'x' || e.key === 'a')) {
+            e.preventDefault();
+            return false;
+        }
+    });
+
+    // 禁用F12开发者工具
+    document.addEventListener('keydown', function(e) {
+        if (e.key === 'F12' || 
+            (e.ctrlKey && e.shiftKey && e.key === 'I') || 
+            (e.ctrlKey && e.shiftKey && e.key === 'J') ||
+            (e.ctrlKey && e.key === 'u')) {
+            e.preventDefault();
+            return false;
+        }
+    });
+
+    // 禁用复制事件
+    document.addEventListener('copy', function(e) {
+        e.preventDefault();
+        return false;
+    });
+
+    // 禁用剪切事件
+    document.addEventListener('cut', function(e) {
+        e.preventDefault();
+        return false;
+    });
+
+    // 添加版权提示
+    document.addEventListener('copy', function(e) {
+        e.preventDefault();
+        alert('内容受版权保护，禁止复制！');
+    });
+
+    // 保护图片
+    document.addEventListener('mousedown', function(e) {
+        if (e.target.tagName === 'IMG') {
+            e.preventDefault();
+            return false;
+        }
+    });
+
+    console.log('版权保护功能已启用');
+})();
