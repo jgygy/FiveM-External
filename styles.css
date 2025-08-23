@@ -728,16 +728,18 @@ body {
     color: var(--text-muted);
 }
 
-/* 自定义音乐播放器样式 - 左下角定位 */
+/* 自定义音乐播放器样式 - 固定在左下角 */
 .custom-music-player {
-    position: fixed;
-    bottom: 20px;
-    left: 20px;
-    z-index: 9999;
-    border-radius: 8px;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
-    border: none;
-    background: transparent;
+    position: fixed !important;
+    bottom: 20px !important;
+    left: 20px !important;
+    z-index: 9999 !important;
+    border-radius: 8px !important;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5) !important;
+    border: none !important;
+    background: transparent !important;
+    pointer-events: auto !important;
+    transform: translateZ(0) !important; /* 防止重绘问题 */
 }
 
 /* 响应式设计 */
