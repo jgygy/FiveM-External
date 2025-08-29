@@ -151,7 +151,30 @@
 <body>
     <!-- 视频背景 -->
     <div class="video-background">
-        <video autoplay muted loop playsinline preload="auto">
+        <div class="download-progress-container" id="downloadProgress">
+            <div class="progress-wrapper">
+                <div class="progress-circle">
+                    <svg class="progress-ring" width="120" height="120">
+                        <circle class="progress-ring__circle" stroke="#00f5ff" stroke-width="4" fill="transparent" r="52" cx="60" cy="60"/>
+                        <circle class="progress-ring__track" stroke="#333" stroke-width="4" fill="transparent" r="52" cx="60" cy="60"/>
+                    </svg>
+                    <div class="progress-text">
+                        <span class="progress-percentage">0%</span>
+                        <span class="progress-label">下载中</span>
+                    </div>
+                </div>
+                <div class="progress-info">
+                    <div class="progress-bar">
+                        <div class="progress-fill"></div>
+                    </div>
+                    <div class="progress-details">
+                        <span class="download-status">正在加载背景视频...</span>
+                        <span class="download-speed">0 KB/s</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <video id="bgVideo" autoplay muted loop playsinline preload="auto">
             <source src="./111.mp4" type="video/mp4">
             您的浏览器不支持视频背景
         </video>
@@ -616,55 +639,178 @@
 
     <!-- 欢迎弹窗脚本 -->
     <script>
-    document.addEventListener('DOMContentLoaded', function() {
-        const modal = document.getElementById('welcome-modal');
-        const confirmBtn = document.getElementById('welcome-confirm');
-        
-        // 显示弹窗
-        setTimeout(() => {
-            modal.classList.add('show');
-        }, 800);
-        
-        // 绑定确定按钮事件
-        confirmBtn.addEventListener('click', function() {
-            // 关闭弹窗
-            modal.classList.remove('show');
-            
-            // 获取音乐播放器iframe
-            const iframe = document.querySelector('.custom-music-player');
-            if (iframe) {
-                // 由于跨域限制，使用focus方法模拟点击
-                iframe.focus();
+        // 视频下载进度条
+        class VideoDownloader {
+            constructor(videoId, progressContainerId) {
+                this.video = document.getElementById(videoId);
+                this.progressContainer = document.getElementById(progressContainerId);
+                this.progressCircle = document.querySelector('.progress-ring__circle');
+                this.progressPercentage = document.querySelector('.progress-percentage');
+                this.progressFill = document.querySelector('.progress-fill');
+                this.downloadStatus = document.querySelector('.download-status');
+                this.downloadSpeed = document.querySelector('.download-speed');
                 
-                // 尝试发送播放指令
-                try {
-                    iframe.contentWindow.postMessage({ action: 'play' }, '*');
-                } catch (e) {
-                    console.log('音乐播放器已准备就绪');
-                }
+                this.totalLength = 0;
+                this.startTime = Date.now();
+                this.isLoaded = false;
+                
+                this.init();
             }
             
-            // 添加点击反馈动画
-            confirmBtn.style.transform = 'scale(0.95)';
-            setTimeout(() => {
-                confirmBtn.style.transform = 'scale(1)';
-            }, 150);
-        });
-        
-        // 点击弹窗外部关闭
-        modal.addEventListener('click', function(e) {
-            if (e.target === modal) {
-                modal.classList.remove('show');
+            init() {
+                if (!this.video || !this.progressContainer) return;
+                
+                this.setupEventListeners();
+                this.simulateLoading(); // 模拟加载过程
             }
-        });
-        
-        // ESC键关闭弹窗
-        document.addEventListener('keydown', function(e) {
-            if (e.key === 'Escape') {
-                modal.classList.remove('show');
+            
+            setupEventListeners() {
+                this.video.addEventListener('loadstart', () => {
+                    this.updateStatus('开始加载...');
+                });
+                
+                this.video.addEventListener('progress', (e) => {
+                    if (this.video.buffered.length > 0) {
+                        const buffered = this.video.buffered.end(0);
+                        const duration = this.video.duration;
+                        
+                        if (duration > 0) {
+                            const percentage = (buffered / duration) * 100;
+                            this.updateProgress(percentage);
+                        }
+                    }
+                });
+                
+                this.video.addEventListener('loadeddata', () => {
+                    this.updateStatus('视频数据已加载');
+                });
+                
+                this.video.addEventListener('canplaythrough', () => {
+                    this.completeLoading();
+                });
+                
+                this.video.addEventListener('error', (e) => {
+                    this.handleError();
+                });
             }
+            
+            simulateLoading() {
+                // 模拟真实的加载过程
+                const duration = 3000; // 3秒加载时间
+                const steps = 60;
+                let currentStep = 0;
+                
+                const loadingInterval = setInterval(() => {
+                    currentStep++;
+                    const percentage = Math.min((currentStep / steps) * 100, 99);
+                    
+                    this.updateProgress(percentage);
+                    this.updateSpeed(Math.random() * 500 + 200);
+                    
+                    if (currentStep >= steps) {
+                        clearInterval(loadingInterval);
+                        setTimeout(() => {
+                            this.completeLoading();
+                        }, 500);
+                    }
+                }, duration / steps);
+            }
+            
+            updateProgress(percentage) {
+                const circle = this.progressCircle;
+                const radius = circle.r.baseVal.value;
+                const circumference = 2 * Math.PI * radius;
+                
+                const offset = circumference - (percentage / 100) * circumference;
+                circle.style.strokeDashoffset = offset;
+                
+                this.progressPercentage.textContent = Math.round(percentage) + '%';
+                this.progressFill.style.width = percentage + '%';
+            }
+            
+            updateStatus(status) {
+                this.downloadStatus.textContent = status;
+            }
+            
+            updateSpeed(speed) {
+                this.downloadSpeed.textContent = Math.round(speed) + ' KB/s';
+            }
+            
+            completeLoading() {
+                if (this.isLoaded) return;
+                this.isLoaded = true;
+                
+                this.updateProgress(100);
+                this.updateStatus('加载完成');
+                this.updateSpeed('');
+                
+                setTimeout(() => {
+                    this.progressContainer.classList.add('hidden');
+                    this.video.classList.add('loaded');
+                }, 500);
+            }
+            
+            handleError() {
+                this.updateStatus('加载失败，请刷新重试');
+                this.downloadSpeed.textContent = '';
+            }
+        }
+        
+        // 欢迎弹窗逻辑
+        document.addEventListener('DOMContentLoaded', function() {
+            const modal = document.getElementById('welcome-modal');
+            const confirmBtn = document.getElementById('welcome-confirm');
+            
+            // 初始化视频下载进度条
+            new VideoDownloader('bgVideo', 'downloadProgress');
+            
+            // 检查是否已经显示过弹窗
+            const hasSeenWelcome = localStorage.getItem('hasSeenWelcome');
+            
+            if (!hasSeenWelcome) {
+                // 延迟显示弹窗，让用户先看到页面
+                setTimeout(() => {
+                    modal.classList.add('show');
+                    localStorage.setItem('hasSeenWelcome', 'true');
+                }, 1500);
+            }
+            
+            // 绑定确定按钮事件
+            confirmBtn.addEventListener('click', function() {
+                modal.classList.remove('show');
+                
+                // 获取音乐播放器iframe
+                const iframe = document.querySelector('.custom-music-player');
+                if (iframe) {
+                    iframe.focus();
+                    try {
+                        iframe.contentWindow.postMessage({ action: 'play' }, '*');
+                    } catch (e) {
+                        console.log('音乐播放器已准备就绪');
+                    }
+                }
+                
+                // 添加点击反馈动画
+                confirmBtn.style.transform = 'scale(0.95)';
+                setTimeout(() => {
+                    confirmBtn.style.transform = 'scale(1)';
+                }, 150);
+            });
+            
+            // 点击弹窗外部关闭
+            modal.addEventListener('click', function(e) {
+                if (e.target === modal) {
+                    modal.classList.remove('show');
+                }
+            });
+            
+            // ESC键关闭弹窗
+            document.addEventListener('keydown', function(e) {
+                if (e.key === 'Escape') {
+                    modal.classList.remove('show');
+                }
+            });
         });
-    });
     </script>
 
     <!-- Live2D看板娘 - 使用ZStatic.net CDN显示在左下角 -->
