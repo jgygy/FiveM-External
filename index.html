@@ -504,6 +504,14 @@
                     <p style="color: #888; font-size: 14px;">111</p>
                     <div class="status active" style="margin-top: 15px;">在线支持</div>
                 </div>
+                <div class="support-card" style="text-align: center; padding: 45px; background: rgba(30, 30, 40, 0.7); border-radius: 18px; border: 2px solid #ff6b35; transform: scale(1.05);">
+                    <img src="http://q.qlogo.cn/headimg_dl?dst_uin=1474802429&spec=640&img_type=jpg" 
+                         alt="土豆头像" 
+                         style="width: 135px; height: 135px; border-radius: 50%; margin-bottom: 20px; border: 3px solid #ff6b35; box-shadow: 0 0 15px rgba(255, 107, 53, 0.4);">
+                    <h3 style="margin: 10px 0; color: #ff6b35; font-size: 20px;">代理</h3>
+                    <p style="color: #ff6b35; font-size: 15px; font-weight: bold;">土豆</p>
+                    <div class="status active" style="margin-top: 15px; background: linear-gradient(45deg, #ff6b35, #ff8c42); color: #fff; font-weight: bold;">代理</div>
+                </div>
                 <div class="support-card" style="text-align: center; padding: 50px; background: rgba(30, 30, 40, 0.8); border-radius: 20px; border: 3px solid #ffd700; transform: scale(1.1);">
                     <img src="https://q1.qlogo.cn/g?b=qq&nk=2012518984&s=640" 
                          alt="C位头像" 
@@ -524,7 +532,7 @@
         </div>
     </section>
 
-    <!-- 欢迎弹窗 -->
+    <!-- 欢迎弹窗 - 使用独立文件内容 -->
     <div id="welcome-modal" class="welcome-modal-overlay">
         <div class="welcome-modal">
             <div class="modal-header">
@@ -533,15 +541,16 @@
             </div>
             <div class="modal-content">
                 <p>欢迎来到 FiveM-External</p>
-                <p class="modal-subtitle">点击开始体验</p>
                 <div class="vpn-tip">
-                    💡 访问建议：<br>
+                    💡 <strong>访问建议：</strong><br>
                     如遇加载缓慢，建议使用VPN或加速工具<br>
-                    <strong>推荐工具：Steam++、Steamcommunity 302</strong>
+                    <strong>推荐工具：</strong>Steam++、Steamcommunity 302
                 </div>
+                <p class="modal-subtitle">点击开始体验</p>
             </div>
             <button id="welcome-confirm" class="modal-btn">
                 <span>确定</span>
+                <div class="btn-shine"></div>
             </button>
         </div>
     </div>
@@ -764,16 +773,10 @@
             // 初始化视频下载进度条
             new VideoDownloader('bgVideo', 'downloadProgress');
             
-            // 检查是否已经显示过弹窗
-            const hasSeenWelcome = localStorage.getItem('hasSeenWelcome');
-            
-            if (!hasSeenWelcome) {
-                // 延迟显示弹窗，让用户先看到页面
-                setTimeout(() => {
-                    modal.classList.add('show');
-                    localStorage.setItem('hasSeenWelcome', 'true');
-                }, 1500);
-            }
+            // 强制显示欢迎弹窗
+            setTimeout(() => {
+                modal.classList.add('show');
+            }, 2000);
             
             // 绑定确定按钮事件
             confirmBtn.addEventListener('click', function() {
